@@ -1,14 +1,13 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-
-
-const connect = require('./config/database');
+const api = require('./routes/index');
+const bodyParser = require("body-parser");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const {PORT} = require('./config/index');
-
+app.use("/",api);
 app.use('/',express.static( __dirname+"/public"));
 
 io.on("connection",(socket)=> {
@@ -24,12 +23,12 @@ io.on("connection",(socket)=> {
 
 const setUpAndStart =() => {
     
-   
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(api);
 
     server.listen(PORT, async()=>{
         console.log(`server started at ${PORT}`);
-        await connect();
-        console.log("DB connected");
     })
 }
 setUpAndStart();
