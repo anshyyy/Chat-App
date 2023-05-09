@@ -7,8 +7,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const {PORT} = require('./config/index');
+app.set('view engine', 'ejs');
+app.set('views', (__dirname + "/views"));
 app.use("/",api);
-app.use('/',express.static( __dirname+"/public"));
+app.use(express.static( __dirname+"/public"));
 
 io.on("connection",(socket)=> {
     console.log("a user is connected  "+socket.id);

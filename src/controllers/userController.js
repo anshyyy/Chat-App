@@ -66,5 +66,31 @@ const getAll = async(req,res) => {
     }
 }
 
+const loadlogin = async(req,res) => {
+    try {
+        res.render('login');
+    } catch (error) {
+        console.log(error);
+        return res.status(501).json({
+            success: false,
+            err: error,
+            message: "not able to load login"
+        })
+    }
+} 
 
-module.exports ={createUser,getUser,getAll};
+const loaddashboard = async(req,res) => {
+    try {
+        res.render('dashboard');
+    } catch (error) {
+        console.log(error);
+        return res.status(501).json({
+            success: false,
+            err: error,
+            message: "not able to load dashboard"
+        })
+    }
+} 
+
+
+module.exports ={createUser,getUser,getAll,loaddashboard,loadlogin};
