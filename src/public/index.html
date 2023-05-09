@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat app</title>
-</head>
-<body>
-    <h1>Chat app using Sockets</h1>
+<html>
+  <head>
+    <title>Login with Google</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <button onclick="signInWithGoogle()">Login with Google</button>
 
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyApne7o2ypaHsxeyyytC_nhSDhlVA9vL6Y",
+    authDomain: "chat-app-13be5.firebaseapp.com",
+    projectId: "chat-app-13be5",
+    storageBucket: "chat-app-13be5.appspot.com",
+    messagingSenderId: "775615398291",
+    appId: "1:775615398291:web:a235c640553e9e7d4fa866",
+    measurementId: "G-MK3KN7HX99"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
 
-    <input type="text", id="roomId" placeholder="room id ...">
-    <input type="text" id="username" placeholder="username">
-    <input type="text" id="newmsg" placeholder="message">
-    <button id="btn">Send</button>
+      // Google Sign-In provider
+      var provider = new firebase.auth.GoogleAuthProvider();
 
-    <ul id="msglist">
-        
-    </ul>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
-</body>
+      // Sign in with Google function
+      function signInWithGoogle() {
+        firebase
+          .auth()
+          .signInWithPopup(provider)
+          .then((result) => {
+            // Handle successful sign-in here
+            console.log(result.user);
+          })
+          .catch((error) => {
+            // Handle errors here
+            console.log(error);
+          });
+      }
+    </script>
+  </body>
 </html>

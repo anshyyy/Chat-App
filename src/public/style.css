@@ -1,0 +1,18 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  button {
+    padding: 16px 32px;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4285f4;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #3367d6;
+  }

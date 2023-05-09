@@ -19,7 +19,6 @@ module.exports = {
        },
       room_id: {
         type:Sequelize.STRING,
-       allowNull:false
        }
        ,
       createdAt: {
