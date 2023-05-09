@@ -2,13 +2,13 @@
   "development": {
     "username": "root",
     "password": "7903553605",
-    "database": "Chatt_App",
+    "database": "Chat_app",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "7903553605",
+    "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"

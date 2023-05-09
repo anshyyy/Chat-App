@@ -21,14 +21,16 @@ io.on("connection",(socket)=> {
 });
 
 
-const setUpAndStart =() => {
+const setUpAndStart =async() => {
     
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: false}));
-    app.use(api);
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use("/api",api);
 
     server.listen(PORT, async()=>{
+       
         console.log(`server started at ${PORT}`);
+      
     })
 }
 setUpAndStart();

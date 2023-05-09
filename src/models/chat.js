@@ -14,9 +14,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Chat.init({
-    sender: DataTypes.STRING,
-    receiver: DataTypes.STRING,
-    message: DataTypes.STRING
+    sender: {
+      type:
+      DataTypes.STRING,
+      allowNull:false
+    },
+    receiver: {
+      type:
+      DataTypes.STRING,
+      allowNull:false
+    },
+    message: {
+      type:
+      DataTypes.STRING,
+      allowNull:false
+    }
   }, {
     sequelize,
     modelName: 'Chat',
