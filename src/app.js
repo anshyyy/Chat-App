@@ -7,11 +7,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const {PORT} = require('./config/index');
-app.set('view engine', 'ejs');
-app.set('views', (__dirname + "/views"));
-app.use("/",api);
-app.use(express.static( __dirname+"/public"));
+const path = require("path")
 
+app.set('view engine', 'ejs');
+app.set('views', __dirname+ "/views");
+app.use(express.static(__dirname+'/public'));
+
+app.use("/",api);
 io.on("connection",(socket)=> {
     console.log("a user is connected  "+socket.id);
     socket.on('msg_send', (data) => {
@@ -29,7 +31,7 @@ const setUpAndStart =async() => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use("/api",api);
 
-    server.listen(PORT, async()=>{
+    server.listen(3000, async()=>{
        
         console.log(`server started at ${PORT}`);
       

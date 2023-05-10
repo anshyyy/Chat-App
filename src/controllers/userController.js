@@ -1,5 +1,6 @@
 const UserRepo = require("../repository/userRepo");
 const userRepo = new UserRepo();
+const {user} = require("../models/index");
 
 const createUser = async (req, res) => {
     try {
@@ -46,10 +47,7 @@ const getUser = async(req,res) => {
 }
 const getAll = async(req,res) => {
     try {
-        console.log(req.body);
-        console.log("sdsdc");
         const user = await userRepo.findAll();
-        console.log(user);
         return res.status(200).json({
             success: true,
             err: " ",
@@ -81,7 +79,16 @@ const loadlogin = async(req,res) => {
 
 const loaddashboard = async(req,res) => {
     try {
-        res.render('dashboard');
+        const username = Object.keys(req.query)[0];
+        const alluser = await user.findAll();
+        const filteruser = [];
+        for(let i =0;i<alluser.length;i++){
+            let u = alluser[i]["dataValues"];
+            if(username != u['username']){
+                filteruser.push(u);
+            }
+        }
+        res.render('dashboard',{user:username,users : filteruser});
     } catch (error) {
         console.log(error);
         return res.status(501).json({

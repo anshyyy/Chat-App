@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chat app</title>
-    <link rel="stylesheet" href="D:/Project/Chat-App/src/public/style.css">
-  </head>
-  <body>
-    <button onclick= "signInWithGoogle()" > Login with Google</button>
+
+<%- include("layout/header.ejs") %>
+<div  class="justify-content-center align-items-center w-100  h-100 my-auto d-flex ">
+    <button onclick= "signInWithGoogle()" class="btn btn-primary"> Login withh Google</button>
+</div>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../public/script.js"></script>
-    <script src = "../public/new.js">
-    </script>
-  </body>
-</html>
+    <script src="/script.js"></script>
+    <script src = "/new.js"></script>
+<%- include('layout/footer.ejs') %>
