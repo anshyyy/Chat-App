@@ -18,9 +18,9 @@ router.get("/chat/get-chat",getChat);
 
 router.get('/',loadlogin);
 router.get('/dashboard',loaddashboard);
-// router.get('*',function(req,res){
-//      res.redirect('/')
-// });
+router.get('*',function(req,res){
+     res.redirect('/')
+});
 
 
 module.exports = router;

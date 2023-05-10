@@ -1,4 +1,4 @@
-const { Chat } = require("../models/index");
+const  Chat  = require("../models/chat");
 
 class ChatRepo {
     async createChat(data) {

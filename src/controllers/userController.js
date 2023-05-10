@@ -1,6 +1,6 @@
 const UserRepo = require("../repository/userRepo");
 const userRepo = new UserRepo();
-const {user} = require("../models/index");
+const user = require("../models/user");
 
 const createUser = async (req, res) => {
     try {

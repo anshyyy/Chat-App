@@ -1,10 +1,10 @@
-const {user} =require('../models/index');
+const User =require('../models/user');
 
 
 const isUserExits = async (req,res,next) => {
 
     const email = req.body.email;
-    const olduser = await user.findOne({where : {email : email}});
+    const olduser = await User.findOne({where : {email : email}});
     console.log(olduser);
     if(olduser){
     return res.status(200).json({

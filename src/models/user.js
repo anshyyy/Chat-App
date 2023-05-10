@@ -1,33 +1,24 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  user.init({
+const {sequelize} = require("../config/db");
+const {DataTypes} = require("sequelize");
+
+const User = sequelize.define("users", {
     username: {
-     type: DataTypes.STRING,
-    allowNull:false
+      type: DataTypes.STRING,
+      allowNull: false
     },
     email: {
-      type: DataTypes.STRING,
-     allowNull:false
-     },
-    room_id: {
-      type: DataTypes.STRING,
-     }
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
-  return user;
-};
+        type: DataTypes.STRING,
+       allowNull:false
+       },
+       room_id: {
+        type: DataTypes.STRING,
+       },
+ });
+
+ sequelize.sync().then(() => {
+    console.log('User table created successfully!');
+ }).catch((error) => {
+    console.error('Unable to create table : ', error);
+ });
+
+ module.exports = User;
