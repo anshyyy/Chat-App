@@ -3,7 +3,8 @@ const express = require('express');
 const api = require('./routes/index');
 const bodyParser = require("body-parser");
 const User = require("../src/models/user");
-
+const ChatRepo = require("./repository/chatRepo")
+const chatRepo = new ChatRepo();
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -38,6 +39,19 @@ usp.on("connection",async function(socket){
             username : username
         }});
     })
+
+    socket.on("newChat",function(data){
+        socket.broadcast.emit("loadNewChat",data);
+     });
+     
+     socket.on("existsChat",async function(data){
+        console.log(data);
+         const oldChats =await chatRepo.getChat(data.sender,data.receiver);
+         console.log(oldChats);
+         socket.emit("loadOldChats",{chats:oldChats});
+
+     });
+
 
 })
 

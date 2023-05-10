@@ -29,7 +29,6 @@ const getChat = async(req,res) => {
 
         console.log(req.query);
         const response = await chatRepo.getChat(req.query.sender,req.query.receiver);
-        console.log(res);
         return res.status(200).json({
             success: true,
             err: " ",
