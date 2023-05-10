@@ -10,7 +10,7 @@ const User = sequelize.define("users", {
         type: DataTypes.STRING,
        allowNull:false
        },
-       is_online : {
+       isOnline : {
          type:DataTypes.STRING,
          default : "0"
        },

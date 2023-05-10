@@ -1,30 +1,45 @@
 const express = require('express');
-const http = require('http');
-const socketio = require('socket.io');
+
 const api = require('./routes/index');
 const bodyParser = require("body-parser");
+const User = require("../src/models/user");
 
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const {PORT} = require('./config/index');
-const path = require("path")
+const path = require("path");
+const { where } = require('sequelize');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+ "/views");
 app.use(express.static(__dirname+'/public'));
 
 app.use("/",api);
-io.on("connection",(socket)=> {
-    console.log("a user is connected  "+socket.id);
-    socket.on('msg_send', (data) => {
-        console.log(data);
-        // io.emit('msg_rcvd', data);
-        // socket.emit('msg_rcvd', data)
-        socket.broadcast.emit('msg_rcvd', data)
-    })
-});
 
+const usp = io.of("/user-namespace");
+usp.on("connection",async function(socket){
+    console.log("user connected");
+    let username = socket.handshake.auth.token;
+
+    socket.broadcast.emit("getOnlineUser",{username:username});
+
+
+
+    console.log(username);
+    const user = await User.update({isOnline:"1"}, {where : {
+        username : username
+    }});
+    console.log(user);
+    socket.on("disconnect",async function(){
+        console.log("User Disconnected");
+        socket.broadcast.emit("getOfflineUser",{username:username});
+        const user = await User.update({isOnline:"0"}, {where : {
+            username : username
+        }});
+    })
+
+})
 
 const setUpAndStart =async() => {
     
@@ -32,7 +47,7 @@ const setUpAndStart =async() => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use("/api",api);
 
-    server.listen(3000, async()=>{
+    http.listen(3000, async()=>{
        
         console.log(`server started at ${PORT}`);
       

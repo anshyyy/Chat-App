@@ -4,7 +4,7 @@
 
 <div class="row">
 
-    <div class = "col-md-3">
+    <div class = "col-md-4">
         <ul class="list-group">
            <%
              
@@ -13,6 +13,18 @@
                 %>
                  <li class="list-group-item list-group-item-dark cursor-pointer user-list">
                     <%=users[i]['username'] %>
+                    <%
+                    if(users[i]['isOnline']=="1") {
+                        %>
+                        <sup class = "online-status" id="<%=users[i]['username']%>-status">Online</sup>
+                        <%
+                    } else {
+                        %>
+                        <sup class = "offline-status" id="<%=users[i]['username']%>-status">Offline</sup>
+                        <%
+                    }
+                    
+                    %>
                  </li>
                 <%
             }
@@ -23,13 +35,25 @@
         </ul>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-8">
         
         <h3 class = "start-head">
             Click to Start the Chat
         </h3>
         <div class="chat-section">
-            <div id="chat-container">   
+            <div id="chat-container"> 
+                <div>
+                   <div class="current-user-chat">
+                    <h5>
+
+                    </h5>
+                   </div>
+                   <div class="distance-user-chat">
+                    <h5>
+
+                    </h5>
+                   </div>
+                </div>  
             </div>
             <form action="" id="chat-form">
                 <input type="text" name="message" placeholder="Enter message" id="message" class="border" required>
@@ -43,12 +67,32 @@
 </div>
 
 <script>
+
+    var sender = '<%= user %>';
+    var socket = io('/user-namespace',{
+        auth : {
+            token:'<%= user %>'
+        }
+    });
     $(document).ready(function(){
         $('.user-list').click(function(){
             $('.start-head').hide();
             $('.chat-section').show();
         })
     });
+    socket.on('getOnlineUser',function(data){
+       $('#'+data.username+"-status").text("Online");
+       $('#'+data.username+"-status").removeClass("offline-status");
+       $('#'+data.username+"-status").addClass("online-status");
+
+    });
+    socket.on('getOfflineUser',function(data){
+       $('#'+data.username+"-status").text("Offline");
+       $('#'+data.username+"-status").addClass("offline-status");
+       $('#'+data.username+"-status").removeClass("online-status");
+    
+    });
+    
 </script>
 
 <%- include('layout/footer.ejs') %>
