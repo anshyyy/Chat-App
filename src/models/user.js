@@ -10,6 +10,10 @@ const User = sequelize.define("users", {
         type: DataTypes.STRING,
        allowNull:false
        },
+       is_online : {
+         type:DataTypes.STRING,
+         default : "0"
+       },
        room_id: {
         type: DataTypes.STRING,
        },

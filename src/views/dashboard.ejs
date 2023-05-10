@@ -11,7 +11,7 @@
            if(users.length>0){
             for(let i = 0;i<users.length;i++){
                 %>
-                 <li class="list-group-item list-group-item-dark">
+                 <li class="list-group-item list-group-item-dark cursor-pointer user-list">
                     <%=users[i]['username'] %>
                  </li>
                 <%
@@ -24,9 +24,31 @@
     </div>
 
     <div class="col-md-9">
+        
+        <h3 class = "start-head">
+            Click to Start the Chat
+        </h3>
+        <div class="chat-section">
+            <div id="chat-container">   
+            </div>
+            <form action="" id="chat-form">
+                <input type="text" name="message" placeholder="Enter message" id="message" class="border" required>
+                <input type="submit" value="send Message" class="btn btn-primary">
+            </form>
+
+        </div>
 
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.user-list').click(function(){
+            $('.start-head').hide();
+            $('.chat-section').show();
+        })
+    });
+</script>
 
 <%- include('layout/footer.ejs') %>
