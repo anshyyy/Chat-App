@@ -10,7 +10,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const {PORT} = require('./config/index');
 const path = require("path");
-const { where } = require('sequelize');
+
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+ "/views");
