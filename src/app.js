@@ -1,5 +1,5 @@
 const express = require('express');
-
+const {connectToDB} = require("../src/config/db")
 const api = require('./routes/index');
 const bodyParser = require("body-parser");
 const User = require("../src/models/user");
@@ -62,9 +62,8 @@ const setUpAndStart =async() => {
     app.use("/api",api);
 
     http.listen(3000, async()=>{
-       
         console.log(`server started at ${PORT}`);
-      
+        await connectToDB();
     })
 }
 setUpAndStart();
