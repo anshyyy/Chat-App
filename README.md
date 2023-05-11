@@ -1,6 +1,6 @@
 This is Chat system 
 
-Tech Stacks : Node.js, Google Cloud SQL, Firebase Authetication, Express.js, AWS-Ec2
+Tech Stacks : Node.js, Google Cloud SQL, Firebase Authetication, Express.js, AWS-Ec2,EJS, HTML,CSS,BOOTSTRAP
 
 featueres :
 1. user can see who is online and offline 
